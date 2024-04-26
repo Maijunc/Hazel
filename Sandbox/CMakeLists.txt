@@ -1,21 +1,60 @@
-cmake_minimum_required(VERSION 3.24)
-project(Sandbox)
+# Sandbox/CMakeLists.txt
 
-set(CMAKE_CXX_STANDARD 17)
+# Define the project Sandbox
+add_executable(Sandbox)
 
-#设置头文件路径
-set(INC_DIR ./include)
+file(GLOB SANDBOX_SOURCES "src/*.cpp" "src/*.h" "src/Hazel/*.h" "src/Hazel/*.cpp")
 
-#设置链接库路径
-set(LINK_DIR ./lib)
+target_sources(Sandbox
+        PRIVATE
+        ${SANDBOX_SOURCES}
+        )
 
-#引入头文件
-include_directories(${INC_DIR})
+target_include_directories(Sandbox
+        PRIVATE
+        "../Hazel/vendor/spdlog/include"
+        "../Hazel/src"
+        )
 
-#引入库文件
-link_directories(${LINK_DIR})
+target_link_libraries(Sandbox
+        PRIVATE
+        Hazel
+        )
 
-add_executable(Sandbox SandboxApp.cpp)
+# 这里是自动寻找.dylib文件的，如果要手动配置目标地址，就按下面的来
+# target_link_libraries(Sandbox
+#        PRIVATE
+#        Hazel
+#        LINK_DIRECTORIES
+#        ${CMAKE_BINARY_DIR}/path_to_hazel_library_directory
+#        )
 
-#将第三方库连接在一起
-target_link_libraries(Sandbox libHazel.dylib)
+set_target_properties(Sandbox
+        PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${outputdir}/Sandbox"
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${outputdir}/Sandbox"
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${outputdir}/Sandbox"
+        )
+
+# Windows specific settings
+if(WIN32)
+    target_compile_definitions(Sandbox
+            PRIVATE
+            HZ_PLATFORM_WINDOWS
+            _UNICODE
+            UNICODE
+            )
+endif()
+
+# Configuration settings
+set(CMAKE_CONFIGURATION_TYPES "Debug;Release;Dist")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DHZ_DEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DHZ_RELEASE")
+set(CMAKE_CXX_FLAGS_DIST "${CMAKE_CXX_FLAGS_DIST} -DHZ_DIST")
+
+# Compiler flags
+if(MSVC)
+    target_compile_options(Sandbox PRIVATE /W4)
+else()
+    target_compile_options(Sandbox PRIVATE -Wall -Wextra -pedantic)
+endif()
