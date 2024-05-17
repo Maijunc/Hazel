@@ -2,6 +2,9 @@
 #ifndef HAZEL_APPLICATION_H
 #define HAZEL_APPLICATION_H
 
+#include "Core.h"
+#include "Events/Event.h"
+
 namespace Hazel {
 
     class Application

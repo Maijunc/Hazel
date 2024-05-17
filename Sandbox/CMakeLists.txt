@@ -3,7 +3,7 @@
 # Define the project Sandbox
 add_executable(Sandbox)
 
-file(GLOB SANDBOX_SOURCES "src/*.cpp" "src/*.h" "src/Hazel/*.h" "src/Hazel/*.cpp")
+file(GLOB SANDBOX_SOURCES "src/*.cpp" "src/*.h")
 
 target_sources(Sandbox
         PRIVATE

@@ -3,7 +3,7 @@
 # Define the project Hazel
 add_library(Hazel SHARED)
 
-file(GLOB HAZEL_SOURCES "src/*.cpp" "src/*.h" "src/Hazel/*.cpp" "src/Hazel/*.h")
+file(GLOB HAZEL_SOURCES "src/*.cpp" "src/*.h" "src/Hazel/*.cpp" "src/Hazel/*.h" "src/Hazel/Events/*.h")
 
 target_sources(Hazel
         PRIVATE
