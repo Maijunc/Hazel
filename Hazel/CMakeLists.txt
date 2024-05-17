@@ -15,6 +15,11 @@ target_include_directories(Hazel
         "vendor/spdlog/include"
         )
 
+target_precompile_headers(Hazel
+        PRIVATE
+            "src/hzpch.h"
+        )
+
 set_target_properties(Hazel
         PROPERTIES
         ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${outputdir}/Hazel"

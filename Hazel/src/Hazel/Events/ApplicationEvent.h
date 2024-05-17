@@ -2,8 +2,7 @@
 #define MYPROJECT_APPLICATIONEVENT_H
 
 #include "Event.h"
-
-#include <sstream>
+#include "../../hzpch.h"
 
 namespace Hazel {
 

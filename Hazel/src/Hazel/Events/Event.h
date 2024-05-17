@@ -2,9 +2,7 @@
 #define MYPROJECT_EVENT_H
 
 #include "../Core.h"
-
-#include <string>
-#include <functional>
+#include "../../hzpch.h"
 
 namespace Hazel {
 
